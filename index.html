@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet" href="style.css">
+    <title>Task Management System</title>
+</head>
+
+<body>
+    <div class="container">
+        <h5>Task Management System</h5>
+        <div class="header">
+            <form id="searchForm">
+                <input type="text" id="searchInput" placeholder="Search for tasks...">
+            </form>
+            <div class="filters">
+                <span>Filter By :</span>
+                <div>
+                    <button onclick="filterAll()">All Tasks</button>
+                    <button onclick="filterPending()">Pending</button>
+                    <button onclick="filterCompleted()">Completed</button>
+                </div>
+            </div>
+            <button class="newTaskBtn" onclick="openNewTaskModal()">New Task</button>
+        </div>
+        <div class="tasks">
+            <div class="task header">
+                <span>Task Description</span>
+                <span>Status</span>
+                <span>Priority</span>
+                <span>Due Date</span>
+                <span>Actions</span>
+            </div>
+            <div class="taskList"></div>
+        </div>
+        <div class="noTasks">
+            <p>No tasks found. Add some...</p>
+        </div>
+        <div class="noResults">
+            <p>No Results found.</p>
+        </div>
+    </div>
+    <div class="newTask">
+        <button onclick="closeNewTaskModal()" id="closeModal">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <form id="newTaskForm">
+            <span>New Task</span>
+            <label>Description</label>
+            <input type="text" id="newTaskInput">
+            <label>Due Date</label>
+            <input type="date" id="newTaskDate">
+            <label>Status</label>
+            <select id="newTaskStatus">
+                <option value="pending" id="pending">Pending</option>
+                <option value="completed" id="completed">Completed</option>
+            </select>
+            <button>Add Task</button>
+        </form>
+    </div>
+    <div class="editTask">
+        <button onclick="closeUpdateModal()" id="closeModal">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <form>
+            <span>Edit Task</span>
+            <input type="text" id="editedTaskInput" placeholder="Task Description">
+            <button>Update Task</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

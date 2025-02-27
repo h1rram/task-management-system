@@ -1,0 +1,301 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: .2s ease;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    min-width: 800px;
+    height: 600px;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    box-shadow: 0 0 50px 10px #00000010;
+}
+
+.container h5 {
+    width: 100%;
+    margin: 20px 0 10px 0;
+    text-align: center;
+}
+
+.header {
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+    column-gap: 30px;
+    width: 100%;
+}
+
+.header .newTaskBtn {
+    padding: 10px 15px;
+    border: 0;
+    outline: 0;
+    background: #014751;
+    color: #fff;
+    margin-right: -20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.header .newTaskBtn:hover {
+    opacity: .9;
+}
+
+#searchForm {
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+#searchForm input {
+    padding: 10px;
+    outline: 0;
+    width: 17rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-left: -20px;
+}
+
+#searchForm button {
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 0 5px 5px 0;
+    background: #014751;
+    color: #fff;
+    cursor: pointer;
+}
+
+.noTasks,
+.noResults {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: #aaa;
+    display: none;
+
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+}
+
+.filters span {
+    font-size: 12px;
+}
+
+.filters div {
+    display: flex;
+    column-gap: 10px;
+}
+
+.filters div button {
+    padding: 10px;
+    border: 0;
+    cursor: pointer;
+}
+
+.filters div button:hover {
+    opacity: .7;
+}
+
+.tasks {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 0 30px;
+    height: 100%;
+    flex-direction: column;
+}
+
+.tasks .taskList {
+    width: 100%;
+    display: flex;
+    row-gap: 10px;
+    height: 100%;
+    overflow-y: auto;
+    flex-direction: column;
+}
+
+.tasks .task {
+    width: 100%;
+    box-shadow: 0 0 30px 10px #00000010;
+    padding: 10px 20px;
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr 1fr 1fr;
+}
+
+.tasks .task.header {
+    background: #ddd;
+    position: sticky;
+    top: 0;
+    font-weight: 600;
+}
+
+.tasks .task #dueDate {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.tasks .task div {
+    display: flex;
+    align-items: center;
+}
+
+.tasks .task p {
+    font-size: 14px;
+    width: fit-content;
+}
+
+.tasks .task span {
+    font-size: 12px;
+}
+
+.tasks .task span#pending {
+    color: #aaa;
+}
+
+.tasks .task span#completed {
+    color: lightgreen;
+}
+
+.status select,
+.priority select {
+    padding: 5px;
+    border: 0;
+    cursor: pointer;
+    outline: 0;
+    margin-left: -40px;
+}
+
+.priority select {
+    margin-left: -20px;
+}
+
+.tasks .task select:hover {
+    background: #00000010;
+}
+
+.tasks .task.completed {
+    text-decoration: line-through;
+}
+
+.btns {
+    display: flex;
+    column-gap: 10px;
+}
+
+.btns button {
+    border: 0;
+    padding: 5px 10px 3px 10px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.btns button span {
+    font-size: 20px;
+}
+
+.btns button:hover {
+    opacity: .5;
+}
+
+.editTask,
+.newTask {
+    height: 100vh;
+    width: 100vw;
+    background: #00000047;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+
+.editTask form,
+.newTask form {
+    width: 400px;
+    background: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    row-gap: 10px;
+}
+
+.editTask form span,
+.newTask form span {
+    text-align: center;
+}
+
+
+.editTask form input,
+.editTask form select,
+.newTask form select,
+.newTask form input {
+    border: 1px solid #ccc;
+    padding: 10px;
+    outline: 0;
+}
+
+.editTask form button,
+.newTask form button {
+    padding: 15px;
+    border: 0;
+    border-radius: 5px;
+    background: #014751;
+    color: #fff;
+    cursor: pointer;
+}
+
+.editTask form button:hover,
+.newTask form button:hover {
+    opacity: .9;
+}
+
+.editTask #closeModal,
+.newTask #closeModal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px 10px 5px 10px;
+    border: 0;
+    cursor: pointer;
+}
+
+.editTask #closeModal span,
+.newTask #closeModal span {
+    font-size: 15px;
+}
+
+.editTask form label,
+.newTask form label {
+    font-size: 12px;
+}
+
+.editTask #closeModal:hover,
+.newTask #closeModal:hover {
+    opacity: .9;
+}
