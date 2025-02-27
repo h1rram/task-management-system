@@ -7,11 +7,13 @@ const newTaskModal = document.querySelector('.newTask');
 const editTaskModal = document.querySelector('.editTask');
 const noTasks = document.querySelector('.noTasks');
 const noResults = document.querySelector('.noResults');
-const newTaskInput = document.querySelector('#newTaskInput')
-const newTaskStatus = document.querySelector('#newTaskStatus')
-const newTaskDate = document.querySelector('#newTaskDate')
-const newTaskForm = document.querySelector('#newTaskForm')
-const searchInput = document.querySelector('#searchInput')
+const newTaskInput = document.querySelector('#newTaskInput');
+const newTaskStatus = document.querySelector('#newTaskStatus');
+const newTaskDate = document.querySelector('#newTaskDate');
+const newTaskForm = document.querySelector('#newTaskForm');
+const searchInput = document.querySelector('#searchInput');
+const editTaskForm = document.querySelector('#editTaskForm');
+const editTaskInput = document.querySelector('#editTaskInput');
 
 // load tasks
 const loadTasks = () => {
@@ -66,16 +68,17 @@ const loadTasks = () => {
 const openNewTaskModal = () => {
     newTaskModal.style.display = 'flex';
 }
-const openUpdateModal = () => {
+const openUpdateModal = (id) => {
     editTaskModal.style.display = 'flex';
+    let task = tasks.find(t => t.id === parseInt(id));
+    editTaskInput.value = task.description;
+    editTaskForm.dataset.id = task.id;
 }
 const closeNewTaskModal = () => {
     newTaskModal.style.display = 'none';
 }
 const closeUpdateModal = () => {
-    if (confirm('Discard changes and exit?')) {
-        editTaskModal.style.display = 'none'
-    };
+    editTaskModal.style.display = 'none'
 }
 
 // adding task
@@ -97,6 +100,16 @@ const addTask = (e) => {
 };
 
 // updating task
+const updateTask = (e, id) => {
+    e.preventDefault();
+    id = e.target.dataset.id;
+    let task = tasks.find(t => t.id === parseInt(id));
+    task.description = editTaskInput.value;
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    closeUpdateModal();
+    alert("Task updated.");
+    loadTasks();
+};
 
 // deleting task
 const deleteTask = (id) => {
@@ -160,6 +173,7 @@ const filterCompleted = () => {
 document.addEventListener('DOMContentLoaded', () => {
     loadTasks();
     newTaskForm.addEventListener('submit', addTask);
+    editTaskForm.addEventListener('submit', updateTask);
 
     tasks.length === 0 ? searchInput.disabled = true : searchInput.disabled = false;
     searchInput.addEventListener('input', searchTask)
