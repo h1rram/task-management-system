@@ -16,6 +16,11 @@ const searchInput = document.getElementById('searchInput');
 const editTaskForm = document.getElementById('editTaskForm');
 const editTaskInput = document.getElementById('editTaskInput');
 
+// error Ps 
+const DescriptionError = document.getElementById('DescriptionError');
+const DueDateError = document.getElementById('DueDateError');
+const EditDescriptionError = document.getElementById('EditDescriptionError');
+
 // load tasks
 const loadTasks = () => {
     tasks.length === 0 ? searchInput.disabled = true : searchInput.disabled = false;
@@ -108,18 +113,57 @@ const resetCharsCount = () => {
     document.querySelector('p.edit-counter').textContent = "0/200";
 };
 
+
+// inputErrors handling
+editTaskInput.addEventListener('input', () => {
+    editTaskInput.value = editTaskInput.value.trim();
+    if (editTaskInput.value.length === 0) {
+        EditDescriptionError.style.display = 'block';
+        EditDescriptionError.textContent = 'Text Description is required';
+    } else {
+        EditDescriptionError.style.display = 'none';
+    }
+})
+
+newTaskInput.addEventListener('input', () => {
+    newTaskInput.value = newTaskInput.value.trim();
+    if (newTaskInput.value.length === 0) {
+        DescriptionError.style.display = 'block';
+        DescriptionError.textContent = 'Text Description is required';
+    } else {
+        DescriptionError.style.display = 'none';
+    }
+})
+
+const showDueDateError = () => {
+    DueDateError.style.display = 'block';
+    DueDateError.textContent = 'Text Due Date is required';
+};
+newTaskDate.addEventListener('input', () => {
+    if (newTaskDate.value.length === 0) {
+        showDueDateError();
+    } else {
+        DueDateError.style.display = 'none';
+    }
+})
+
+
+
+
 // adding task
 const addTask = (e) => {
     e.preventDefault();
 
     // handle empty input error
     if (newTaskInput.value.trim().length === 0) {
-        return alert("Task Description is required.");
+        return false;
     }
 
     // handle empty date error
-    else if (newTaskDate.value.trim().length === 0) {
-        return alert("Task Due Date is required.");
+    if (newTaskDate.value.length === 0) {
+        return showDueDateError();
+    } else {
+        DueDateError.style.display = 'none';
     }
 
     const data = {
@@ -148,7 +192,7 @@ const updateTask = (e, id) => {
 
     // handle empty input error
     if (editTaskInput.value.trim().length === 0) {
-        return alert("Task Description is required.");
+        return false;
     }
 
     task.description = editTaskInput.value;
@@ -158,6 +202,7 @@ const updateTask = (e, id) => {
     resetCharsCount();
     loadTasks();
     strikethroughComplete();
+
 };
 
 // updating status
@@ -166,6 +211,7 @@ const updateStatus = (id) => {
     const task = tasks.find(t => t.id === parseInt(id));
     task.status = statusInput.value;
     localStorage.setItem('tasks', JSON.stringify(tasks));
+    alert('Task status updated.');
     loadTasks();
     strikethroughComplete();
 };
@@ -176,6 +222,7 @@ const updatePriority = (id) => {
     const task = tasks.find(t => t.id === parseInt(id));
     task.priority = priorityInput.value;
     localStorage.setItem('tasks', JSON.stringify(tasks));
+    alert('Task priority updated.');
     loadTasks();
     strikethroughComplete();
 };

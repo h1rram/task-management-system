@@ -304,3 +304,9 @@ body {
 .edit-counter {
     font-size: 10px;
 }
+
+.error {
+    font-size: 10px;
+    color: red;
+    display: none;
+}

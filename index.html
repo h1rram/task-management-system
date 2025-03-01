@@ -34,7 +34,7 @@
                 <span>Due Date</span>
                 <span>Actions</span>
             </div>
-            <div class="taskList"></div>
+            <ul class="taskList"></ul>
         </div>
         <div class="noTasks">
             <p>No tasks found. Add some...</p>
@@ -52,8 +52,10 @@
             <label>Description</label>
             <input type="text" id="newTaskInput">
             <p class="new-counter"></p>
+            <p class="error" id="DescriptionError">Description Error</p>
             <label>Due Date</label>
             <input type="date" id="newTaskDate">
+            <p class="error" id="DueDateError">Due Date Error</p>
             <label>Priority</label>
             <select id="newTaskPriority">
                 <option value="low">Low</option>
@@ -76,6 +78,7 @@
             <span>Edit Task Description</span>
             <input type="text" id="editTaskInput" placeholder="Task Description">
             <p class="edit-counter"></p>
+            <p class="error" id="EditDescriptionError"></p>
             <button>Update Task</button>
         </form>
     </div>
