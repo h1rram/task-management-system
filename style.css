@@ -126,9 +126,10 @@ body {
     flex-direction: column;
 }
 
-.tasks .taskList {
+.tasks .tasks .taskList {
     width: 100%;
     display: flex;
+    width: 100%;
     row-gap: 10px;
     height: 100%;
     overflow-y: auto;
@@ -309,4 +310,70 @@ body {
     font-size: 10px;
     color: red;
     display: none;
+}
+
+/* responsiveness */
+@media screen and (max-width: 768px) {
+    body {
+        overflow: hidden;
+    }
+
+    .container {
+        box-shadow: unset;
+    }
+
+    .container {
+        min-width: 95%;
+        height: 90vh;
+    }
+
+    .header {
+        flex-direction: column;
+        row-gap: 10px;
+        z-index: 1;
+    }
+
+    #searchForm input {
+        width: 24rem;
+        margin-left: 0;
+    }
+
+    .tasks .task {
+        grid-template-columns: 1fr;
+        row-gap: 10px;
+        padding: 15px;
+        height: fit-content;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .tasks {
+        padding: 0 10px;
+    }
+
+    .filters {
+        flex-direction: column;
+        row-gap: 10px;
+    }
+
+    .editTask,
+    .newTask {
+        z-index: 1;
+    }
+
+    .editTask form,
+    .newTask form {
+        width: 90%;
+        margin: 10px;
+    }
+
+    .tasks .taskList {
+        height: 50%;
+        width: 100%;
+        overflow-y: auto;
+    }
+
+    .status select,
+    .priority select {
+        margin-left: -10px;
+    }
 }
