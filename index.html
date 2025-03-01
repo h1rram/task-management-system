@@ -53,10 +53,16 @@
             <input type="text" id="newTaskInput">
             <label>Due Date</label>
             <input type="date" id="newTaskDate">
+            <label>Priority</label>
+            <select id="newTaskPriority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
             <label>Status</label>
             <select id="newTaskStatus">
-                <option value="pending" id="pending">Pending</option>
-                <option value="completed" id="completed">Completed</option>
+                <option value="pending">Pending</option>
+                <option value="completed">Completed</option>
             </select>
             <button>Add Task</button>
         </form>
@@ -66,7 +72,7 @@
             <span class="material-symbols-outlined">close</span>
         </button>
         <form id="editTaskForm">
-            <span>Edit Task</span>
+            <span>Edit Task Description</span>
             <input type="text" id="editTaskInput" placeholder="Task Description">
             <button>Update Task</button>
         </form>

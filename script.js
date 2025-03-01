@@ -7,13 +7,14 @@ const newTaskModal = document.querySelector('.newTask');
 const editTaskModal = document.querySelector('.editTask');
 const noTasks = document.querySelector('.noTasks');
 const noResults = document.querySelector('.noResults');
-const newTaskInput = document.querySelector('#newTaskInput');
-const newTaskStatus = document.querySelector('#newTaskStatus');
-const newTaskDate = document.querySelector('#newTaskDate');
-const newTaskForm = document.querySelector('#newTaskForm');
-const searchInput = document.querySelector('#searchInput');
-const editTaskForm = document.querySelector('#editTaskForm');
-const editTaskInput = document.querySelector('#editTaskInput');
+const newTaskInput = document.getElementById('newTaskInput');
+const newTaskStatus = document.getElementById('newTaskStatus');
+const newTaskPriority = document.getElementById('newTaskPriority');
+const newTaskDate = document.getElementById('newTaskDate');
+const newTaskForm = document.getElementById('newTaskForm');
+const searchInput = document.getElementById('searchInput');
+const editTaskForm = document.getElementById('editTaskForm');
+const editTaskInput = document.getElementById('editTaskInput');
 
 // load tasks
 const loadTasks = () => {
@@ -25,10 +26,10 @@ const loadTasks = () => {
         tasks.forEach(task => {
             const taskDiv = document.createElement('div');
             taskDiv.innerHTML = `
-                <div class="task">
+                <div class="task task-element">
                     <p>${task.description}</p>
                     <div class="status">
-                        <select name="status">
+                        <select id="status" onchange="updateStatus(${task.id})">
                             <option value="pending" ${task.status === 'pending' ? 'selected' : ''}>Pending</option>
                             <option value="completed" ${task.status === 'completed' ? 'selected' : ''}>Completed</option>
                         </select>
@@ -87,6 +88,7 @@ const addTask = (e) => {
     const data = {
         id: tasks.length + 1,
         description: newTaskInput.value,
+        priority: newTaskPriority.value,
         status: newTaskStatus.value,
         dueDate: newTaskDate.value
     };
@@ -97,6 +99,7 @@ const addTask = (e) => {
     newTaskForm.reset();
     taskContainer.style.display = 'block';
     loadTasks();
+    strikethroughComplete();
 };
 
 // updating task
@@ -109,6 +112,27 @@ const updateTask = (e, id) => {
     closeUpdateModal();
     alert("Task updated.");
     loadTasks();
+    strikethroughComplete();
+};
+
+// updating status
+const updateStatus = (id) => {
+    const statusInput = document.getElementById("status");
+    const task = tasks.find(t => t.id === parseInt(id));
+    task.status = statusInput.value;
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    loadTasks();
+    strikethroughComplete();
+};
+
+// updating priority
+const updatePriority = (id) => {
+    const priorityInput = document.getElementById("priority");
+    const task = tasks.find(t => t.id === parseInt(id));
+    task.priority = priorityInput.value;
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    loadTasks();
+    strikethroughComplete();
 };
 
 // deleting task
@@ -119,6 +143,7 @@ const deleteTask = (id) => {
         localStorage.setItem('tasks', JSON.stringify(tasks));
         alert("Task deleted.");
         loadTasks();
+        strikethroughComplete();
     }
 };
 
@@ -145,6 +170,18 @@ const searchTask = (e) => {
     }
 }
 
+// strikethrough completed tasks
+const strikethroughComplete = () => {
+    document.querySelectorAll('.task-element').forEach(task => {
+        const status = task.querySelector('#status').value;
+        const description = task.querySelector('p');
+
+        if (status === 'completed') {
+            description.style.textDecoration = 'line-through';
+            description.style.opacity = '0.6';
+        }
+    });
+};
 
 // filters
 const filterAll = () => {
@@ -152,29 +189,34 @@ const filterAll = () => {
     noResults.style.display = 'none';
     taskContainer.style.display = 'block';
     loadTasks();
+    strikethroughComplete();
 };
+
 const filterPending = () => {
     tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     noResults.style.display = 'none';
     taskContainer.style.display = 'block';
     tasks = tasks.filter(task => task.status === 'pending');
     loadTasks();
+    strikethroughComplete();
 };
+
 const filterCompleted = () => {
     tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     noResults.style.display = 'none';
     taskContainer.style.display = 'block';
     tasks = tasks.filter(task => task.status === 'completed');
     loadTasks();
+    strikethroughComplete();
 };
-
 
 
 document.addEventListener('DOMContentLoaded', () => {
     loadTasks();
+    strikethroughComplete();
     newTaskForm.addEventListener('submit', addTask);
     editTaskForm.addEventListener('submit', updateTask);
 
     tasks.length === 0 ? searchInput.disabled = true : searchInput.disabled = false;
-    searchInput.addEventListener('input', searchTask)
+    searchInput.addEventListener('input', searchTask);
 });
