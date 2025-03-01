@@ -85,6 +85,22 @@ const closeUpdateModal = () => {
 // adding task
 const addTask = (e) => {
     e.preventDefault();
+
+    // handle empty input error
+    if (newTaskInput.value.trim().length === 0) {
+        return alert("Task Description is required.");
+    }
+
+    // handle empty date error
+    else if (newTaskDate.value.trim().length === 0) {
+        return alert("Task Due Date is required.");
+    }
+
+    // handle description over 200 characters
+    else if (editTaskInput.value.trim().length > 200) {
+        return alert("Task Description must have at least 1 to 200 characters.");
+    }
+
     const data = {
         id: tasks.length + 1,
         description: newTaskInput.value,
@@ -107,6 +123,17 @@ const updateTask = (e, id) => {
     e.preventDefault();
     id = e.target.dataset.id;
     let task = tasks.find(t => t.id === parseInt(id));
+
+    // handle empty input error
+    if (editTaskInput.value.trim().length === 0) {
+        return alert("Task Description is required.");
+    }
+
+    // handle description over 200 characters
+    else if (editTaskInput.value.trim().length > 200) {
+        return alert("Task Description must have at least 1 to 200 characters.");
+    }
+
     task.description = editTaskInput.value;
     localStorage.setItem('tasks', JSON.stringify(tasks));
     closeUpdateModal();
