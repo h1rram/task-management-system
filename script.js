@@ -74,6 +74,7 @@ const openUpdateModal = (id) => {
     let task = tasks.find(t => t.id === parseInt(id));
     editTaskInput.value = task.description;
     editTaskForm.dataset.id = task.id;
+    countChars(editTaskInput, 'edit-counter');
 }
 const closeNewTaskModal = () => {
     newTaskModal.style.display = 'none';
@@ -81,6 +82,31 @@ const closeNewTaskModal = () => {
 const closeUpdateModal = () => {
     editTaskModal.style.display = 'none'
 }
+
+// count character on input for new and edit tasks
+const countChars = (input, counterClass) => {
+    let count = input.value.trim().length;
+    document.querySelector(`p.${counterClass}`).textContent = `${count}/200`;
+    input.addEventListener('input', () => {
+        count = input.value.trim().length;
+        document.querySelector(`p.${counterClass}`).textContent = `${count}/200`;
+        if (input.value.trim().length >= 200) {
+            input.value = input.value.slice(0, 200);
+            count = 200;
+            document.querySelector(`p.${counterClass}`).textContent = `${count}/200`;
+        }
+    });
+};
+
+// Initialize character counting for both inputs
+countChars(newTaskInput, 'new-counter');
+countChars(editTaskInput, 'edit-counter');
+
+// reset charsCount
+const resetCharsCount = () => {
+    document.querySelector('p.new-counter').textContent = "0/200";
+    document.querySelector('p.edit-counter').textContent = "0/200";
+};
 
 // adding task
 const addTask = (e) => {
@@ -96,11 +122,6 @@ const addTask = (e) => {
         return alert("Task Due Date is required.");
     }
 
-    // handle description over 200 characters
-    else if (editTaskInput.value.trim().length > 200) {
-        return alert("Task Description must have at least 1 to 200 characters.");
-    }
-
     const data = {
         id: tasks.length + 1,
         description: newTaskInput.value,
@@ -114,6 +135,7 @@ const addTask = (e) => {
     closeNewTaskModal();
     newTaskForm.reset();
     taskContainer.style.display = 'block';
+    resetCharsCount();
     loadTasks();
     strikethroughComplete();
 };
@@ -129,15 +151,11 @@ const updateTask = (e, id) => {
         return alert("Task Description is required.");
     }
 
-    // handle description over 200 characters
-    else if (editTaskInput.value.trim().length > 200) {
-        return alert("Task Description must have at least 1 to 200 characters.");
-    }
-
     task.description = editTaskInput.value;
     localStorage.setItem('tasks', JSON.stringify(tasks));
     closeUpdateModal();
     alert("Task updated.");
+    resetCharsCount();
     loadTasks();
     strikethroughComplete();
 };

@@ -163,7 +163,8 @@ body {
 
 .tasks .task p {
     font-size: 14px;
-    width: fit-content;
+    width: 300px;
+    overflow-wrap: break-word;
 }
 
 .tasks .task span {
@@ -297,4 +298,9 @@ body {
 .editTask #closeModal:hover,
 .newTask #closeModal:hover {
     opacity: .9;
+}
+
+.new-counter,
+.edit-counter {
+    font-size: 10px;
 }
