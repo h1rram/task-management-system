@@ -269,12 +269,14 @@ const searchTask = (e) => {
             noResults.style.display = 'none';
             taskContainer.style.display = 'block';
             loadTasks();
+            strikethroughComplete();
         }
     } else {
         noResults.style.display = 'none';
         taskContainer.style.display = 'block';
         tasks = JSON.parse(localStorage.getItem('tasks')) || [];
         loadTasks();
+        strikethroughComplete();
     }
 }
 
@@ -294,6 +296,7 @@ const strikethroughComplete = () => {
 // filters
 const filterAll = () => {
     tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    searchInput.value = "";
     noResults.style.display = 'none';
     taskContainer.style.display = 'block';
     loadTasks();
@@ -302,6 +305,7 @@ const filterAll = () => {
 
 const filterPending = () => {
     tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    searchInput.value = "";
     noResults.style.display = 'none';
     taskContainer.style.display = 'block';
     tasks = tasks.filter(task => task.status === 'pending');
@@ -311,6 +315,7 @@ const filterPending = () => {
 
 const filterCompleted = () => {
     tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    searchInput.value = "";
     noResults.style.display = 'none';
     taskContainer.style.display = 'block';
     tasks = tasks.filter(task => task.status === 'completed');
