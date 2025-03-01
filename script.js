@@ -135,10 +135,6 @@ newTaskInput.addEventListener('input', () => {
     }
 })
 
-const showDueDateError = () => {
-    DueDateError.style.display = 'block';
-    DueDateError.textContent = 'Text Due Date is required';
-};
 newTaskDate.addEventListener('input', () => {
     if (newTaskDate.value.length === 0) {
         showDueDateError();
@@ -148,15 +144,38 @@ newTaskDate.addEventListener('input', () => {
 })
 
 
+const showBothNewTaskErrors = () => {
+    DescriptionError.style.display = 'block';
+    DueDateError.textContent = 'Text Description is required';
+    DueDateError.style.display = 'block';
+    DueDateError.textContent = 'Text Due Date is required';
+};
+
+const showDescriptionError = () => {
+    DescriptionError.style.display = 'block';
+    DueDateError.textContent = 'Text Description is required';
+};
+
+const showDueDateError = () => {
+    DueDateError.style.display = 'block';
+    DueDateError.textContent = 'Text Due Date is required';
+};
 
 
 // adding task
 const addTask = (e) => {
     e.preventDefault();
 
-    // handle empty input error
-    if (newTaskInput.value.trim().length === 0) {
-        return false;
+    // handle both empty input error
+    if (newTaskInput.value.trim().length === 0 && newTaskDate.value.length === 0) {
+        return showBothNewTaskErrors();
+    }
+
+    // handle empty description error
+    if (newTaskInput.value.length === 0) {
+        return showDescriptionError();
+    } else {
+        DescriptionError.style.display = 'none';
     }
 
     // handle empty date error
