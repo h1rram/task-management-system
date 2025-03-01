@@ -116,8 +116,7 @@ const resetCharsCount = () => {
 
 // inputErrors handling
 editTaskInput.addEventListener('input', () => {
-    editTaskInput.value = editTaskInput.value.trim();
-    if (editTaskInput.value.length === 0) {
+    if (editTaskInput.value.trim().length === 0) {
         EditDescriptionError.style.display = 'block';
         EditDescriptionError.textContent = 'Text Description is required';
     } else {
@@ -126,8 +125,7 @@ editTaskInput.addEventListener('input', () => {
 })
 
 newTaskInput.addEventListener('input', () => {
-    newTaskInput.value = newTaskInput.value.trim();
-    if (newTaskInput.value.length === 0) {
+    if (newTaskInput.value.trim().length === 0) {
         DescriptionError.style.display = 'block';
         DescriptionError.textContent = 'Text Description is required';
     } else {
@@ -187,7 +185,7 @@ const addTask = (e) => {
 
     const data = {
         id: tasks.length + 1,
-        description: newTaskInput.value,
+        description: newTaskInput.value.trim(),
         priority: newTaskPriority.value,
         status: newTaskStatus.value,
         dueDate: newTaskDate.value
@@ -214,14 +212,13 @@ const updateTask = (e, id) => {
         return false;
     }
 
-    task.description = editTaskInput.value;
+    task.description = editTaskInput.value.trim();
     localStorage.setItem('tasks', JSON.stringify(tasks));
     closeUpdateModal();
     alert("Task updated.");
     resetCharsCount();
     loadTasks();
     strikethroughComplete();
-
 };
 
 // updating status
